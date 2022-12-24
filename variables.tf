@@ -1,9 +1,14 @@
 #---------------------------------------------------------------------------------------------------
-# Proxmox
+# General
 #---------------------------------------------------------------------------------------------------
 
-variable "proxmox_node" {
+variable "node" {
   description = "Proxmox node to host the virtual machine"
+  type        = string
+}
+
+variable "namespace" {
+  description = "Namespace to which the virtual machine belongs"
   type        = string
 }
 
@@ -13,11 +18,6 @@ variable "proxmox_node" {
 
 variable "vm_name" {
   description = "Virtual machine hostname"
-  type        = string
-}
-
-variable "vm_namespace" {
-  description = "Virtual machine namespace"
   type        = string
 }
 
