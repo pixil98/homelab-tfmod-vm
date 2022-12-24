@@ -38,6 +38,7 @@ resource "proxmox_vm_qemu" "vm" {
   sshkeys   = var.vm_user_publickey
 }
 
+# Apply Puppet role
 resource "null_resource" "puppet" {
   triggers = {
     role = var.puppet_role
@@ -55,7 +56,7 @@ resource "null_resource" "puppet" {
 
   provisioner "remote-exec" {
     inline = [ 
-      format("git clone %s%s .puppet", var.puppet_gitrepo, var.puppet_gitref == null ? "" : "?ref=${var.puppet_gitref}")
+      "git clone ${var.puppet_gitrepo}${var.puppet_gitref == null ? "" : "?ref=${var.puppet_gitref}"} .puppet",
     ]
   }
 }
