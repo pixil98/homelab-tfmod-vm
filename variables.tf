@@ -116,7 +116,7 @@ variable "puppet_gitrepo" {
 }
 
 variable "puppet_gitref" {
-  description = "Git repository for fetching Puppet roles"
+  description = "Git ref"
   type        = string
   default     = null
 }
