@@ -1,7 +1,7 @@
 resource "proxmox_vm_qemu" "vm" {
-  name              = format("%s.%s.lab", var.vm_name, var.vm_namespace)
+  name              = format("%s.%s.lab", var.vm_name, var.namespace)
   desc              = var.vm_description
-  target_node       = var.proxmox_node
+  target_node       = var.node
   clone             = "debian-11-cloudinit"
   onboot            = true
   pool              = var.namespace
