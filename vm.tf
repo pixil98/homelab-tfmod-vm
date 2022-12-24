@@ -41,6 +41,8 @@ resource "proxmox_vm_qemu" "vm" {
 resource "null_resource" "puppet" {
   triggers = {
     role = var.puppet_role
+    repo = var.puppet_gitrepo
+    ref  = var.puppet_gitref
   }
 
   connection {
