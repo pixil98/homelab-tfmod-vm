@@ -109,16 +109,28 @@ variable "vm_user_privatekey" {
 # Puppet
 #---------------------------------------------------------------------------------------------------
 
-variable "puppet_gitrepo" {
+variable "puppet_git_host" {
   description = "Git repository for fetching Puppet roles"
   type        = string
-  default     = "git@github.com:pixil98/homelab-puppet.git"
+  default     = "github.com"
 }
 
-variable "puppet_gitref" {
+variable "puppet_git_repo" {
+  description = "Git repository for fetching Puppet roles"
+  type        = string
+  default     = "pixil98/homelab-puppet"
+}
+
+variable "puppet_git_ref" {
   description = "Git ref"
   type        = string
   default     = "production"
+}
+
+variable "puppet_git_fingerprint" {
+  description = "SSH fingerprint of git server"
+  type        = string
+  default     = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl"
 }
 
 variable "puppet_role" {
