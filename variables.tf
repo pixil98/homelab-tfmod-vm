@@ -2,30 +2,6 @@
 # Proxmox
 #---------------------------------------------------------------------------------------------------
 
-variable "proxmox_host" {
-  description = "Proxmox server hostname"
-  type        = string
-  default     = "hobbes.lab.reisman.org"
-}
-
-variable "proxmox_port" {
-  description = "Proxmox server port"
-  type        = number
-  default     = 8006
-}
-
-variable "proxmox_user" {
-  description = "Proxmox login username"
-  type        = string
-  sensitive   = true
-}
-
-variable "proxmox_password" {
-  description = "Proxmox login password"
-  type        = string
-  sensitive   = true
-}
-
 variable "proxmox_node" {
   description = "Proxmox node to host the virtual machine"
   type        = string
