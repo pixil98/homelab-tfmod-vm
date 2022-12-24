@@ -92,8 +92,25 @@ variable "vm_user" {
   sensitive   = true
 }
 
-variable "vm_user_pubkey" {
+variable "vm_user_publickey" {
   description = "Virtual machine user public key"
   type        = string
   sensitive   = true
+}
+
+variable "vm_user_privatekey" {
+  description = "Virtual machine user private key, only used to deploy puppet role"
+  type        = string
+  sensitive   = true
+  default     = null
+}
+
+#---------------------------------------------------------------------------------------------------
+# Puppet
+#---------------------------------------------------------------------------------------------------
+
+variable "puppet_role" {
+  description = "Puppet role to assign to the virtual machine"
+  type        = string
+  default     = null
 }

@@ -3,6 +3,7 @@ resource "proxmox_vm_qemu" "vm" {
   desc              = var.vm_description
   target_node       = var.node
   clone             = "debian-11-cloudinit"
+  oncreate          = true
   onboot            = true
   pool              = var.namespace
   agent             = 1
@@ -34,5 +35,30 @@ resource "proxmox_vm_qemu" "vm" {
   nameserver = var.vm_network_nameserver
   searchdomain = var.vm_network_searchdomain
   ciuser    = var.vm_user
-  sshkeys   = var.vm_user_pubkey
+  sshkeys   = var.vm_user_publickey
+
+  # Deploy Puppet role
+  provisioner "remote-exec" {
+    inline = [
+      "ip a"
+    ]
+  }
+}
+
+resource "null_resource" "puppet" {
+  triggers = {
+    role = var.puppet_role
+  }
+
+  connection {
+    type        = "ssh"
+    user        = proxmox_vm_qemu.vm.ciuser
+    private_key = var.vm_user_privatekey
+    host        = proxmox_vm_qemu.vm.ssh_host
+    port        = proxmox_vm_qemu.vm.ssh_port
+  } 
+
+  provisioner "remote-exec" {
+    inline = [ "ip a" ]
+  }
 }
