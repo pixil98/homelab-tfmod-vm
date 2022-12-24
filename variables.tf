@@ -89,7 +89,6 @@ variable "vm_network_searchdomain" {
 variable "vm_user" {
   description = "Virtual machine username"
   type        = string
-  default     = "user"
   sensitive   = true
 }
 
