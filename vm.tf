@@ -58,7 +58,7 @@ resource "null_resource" "puppet" {
   provisioner "remote-exec" {
     inline = [ 
       "ssh-keygen -R ${var.puppet_git_host}",
-      "echo '${var.puppet_git_host} ${var.puppet_git_fingerprint}",
+      "echo '${var.puppet_git_host} ${var.puppet_git_fingerprint}' >> ~/.ssh/known_hosts",
       "ssh-keygen -Hf ~/.ssh/known_hosts",
       "cat ~/.ssh/known_hosts",
 
