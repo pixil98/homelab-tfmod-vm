@@ -42,8 +42,9 @@ resource "proxmox_vm_qemu" "vm" {
 resource "null_resource" "puppet" {
   triggers = {
     role = var.puppet_role
-    repo = var.puppet_gitrepo
-    ref  = var.puppet_gitref
+    host = var.puppet_git_host
+    repo = var.puppet_git_repo
+    ref  = var.puppet_git_ref
   }
 
   connection {
@@ -61,7 +62,7 @@ resource "null_resource" "puppet" {
       "ssh-keygen -Hf ~/.ssh/known_hosts",
       "cat ~/.ssh/known_hosts",
 
-      #"git clone ${var.puppet_gitrepo}?ref=${var.puppet_gitref} .puppet",
+      #"git clone ${var.puppet_git_repo}?ref=${var.puppet_git_ref} .puppet",
       
             
       "rm -rf .puppet"
