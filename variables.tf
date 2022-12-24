@@ -26,6 +26,11 @@ variable "proxmox_password" {
   sensitive   = true
 }
 
+variable "proxmox_node" {
+  description = "Proxmox node to host the virtual machine"
+  type        = string
+}
+
 #---------------------------------------------------------------------------------------------------
 # Virtual Machine
 #---------------------------------------------------------------------------------------------------
