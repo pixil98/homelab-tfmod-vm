@@ -109,6 +109,18 @@ variable "vm_user_privatekey" {
 # Puppet
 #---------------------------------------------------------------------------------------------------
 
+variable "puppet_gitrepo" {
+  description = "Git repository for fetching Puppet roles"
+  type        = string
+  default     = "git@github.com:pixil98/puppet.git"
+}
+
+variable "puppet_gitref" {
+  description = "Git repository for fetching Puppet roles"
+  type        = string
+  default     = null
+}
+
 variable "puppet_role" {
   description = "Puppet role to assign to the virtual machine"
   type        = string
