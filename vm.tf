@@ -4,7 +4,7 @@ resource "proxmox_vm_qemu" "vm" {
   target_node       = var.proxmox_node
   clone             = "debian-11-cloudinit"
   onboot            = true
-  pool              = var.vm_namespace
+  pool              = var.namespace
   agent             = 1
   os_type           = "cloud-init"
   cores             = var.vm_cpu_cores
