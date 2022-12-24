@@ -1,0 +1,38 @@
+resource "proxmox_vm_qemu" "vm" {
+  name              = format("%s.%s.lab", var.vm_name, var.vm_namespace)
+  desc              = var.vm_description
+  target_node       = var.vm_hosts[count.index % length(var.vm_hosts)]
+  clone             = "debian-11-cloudinit"
+  onboot            = true
+  pool              = var.vm_namespace
+  agent             = 1
+  os_type           = "cloud-init"
+  cores             = var.vm_cpu_cores
+  sockets           = var.vm_cpu_sockets
+  cpu               = "host"
+  memory            = var.vm_memory
+  scsihw            = "virtio-scsi-pci"
+  bootdisk          = "scsi0"
+  disk {
+      size            = var.vm_disk_size
+      type            = "scsi"
+      storage         = var.vm_disk_class
+      iothread        = 0
+  }
+  network {
+      model           = "virtio"
+      bridge          = "vmbr0"
+  }
+  lifecycle {
+      ignore_changes  = [
+        network,
+      ]
+  }
+  
+  # Cloud Init Settings
+  ipconfig0 = format("ip=%s/%d,gw=%s", var.vm_network_address, var.vm_network_prefix, var.vm_network_gateway)
+  nameserver = var.vm_network_nameserver
+  searchdomain = var.vm_network_searchdomain
+  ciuser    = var.vm_user
+  sshkeys   = var.vm_user_pubkey
+}
