@@ -112,17 +112,17 @@ variable "vm_user_privatekey" {
 variable "puppet_gitrepo" {
   description = "Git repository for fetching Puppet roles"
   type        = string
-  default     = "git@github.com:pixil98/puppet.git"
+  default     = "git@github.com:pixil98/homelab-puppet.git"
 }
 
 variable "puppet_gitref" {
   description = "Git ref"
   type        = string
-  default     = null
+  default     = "production"
 }
 
 variable "puppet_role" {
   description = "Puppet role to assign to the virtual machine"
   type        = string
-  default     = null
+  default     = "base"
 }
