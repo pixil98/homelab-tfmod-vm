@@ -55,7 +55,7 @@ resource "null_resource" "puppet" {
 
   provisioner "remote-exec" {
     inline = [ 
-      format("git clone %s%s .puppet", var.puppet_gitrepo, var.puppet_gitref ? "" : "?ref=${var.puppet_gitref}")
+      format("git clone %s%s .puppet", var.puppet_gitrepo, var.puppet_gitref == null ? "" : "?ref=${var.puppet_gitref}")
     ]
   }
 }
