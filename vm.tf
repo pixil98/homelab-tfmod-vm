@@ -59,8 +59,9 @@ resource "null_resource" "puppet" {
       "ssh-keygen -R github.com",
       "curl --silent https://api.github.com/meta | jq --raw-output '\"github.com \"+.ssh_keys[]' >> ~/.ssh/known_hosts",
       "ssh-keygen -Hf ~/.ssh/known_hosts",
+      "cat ~/.ssh/known_hosts",
 
-      "git clone ${var.puppet_gitrepo}?ref=${var.puppet_gitref} .puppet",
+      #"git clone ${var.puppet_gitrepo}?ref=${var.puppet_gitref} .puppet",
       
             
       "rm -rf .puppet"
