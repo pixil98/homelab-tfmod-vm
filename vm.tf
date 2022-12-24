@@ -36,13 +36,6 @@ resource "proxmox_vm_qemu" "vm" {
   searchdomain = var.vm_network_searchdomain
   ciuser    = var.vm_user
   sshkeys   = var.vm_user_publickey
-
-  # Deploy Puppet role
-  provisioner "remote-exec" {
-    inline = [
-      "ip a"
-    ]
-  }
 }
 
 resource "null_resource" "puppet" {
@@ -59,6 +52,8 @@ resource "null_resource" "puppet" {
   } 
 
   provisioner "remote-exec" {
-    inline = [ "ip a" ]
+    inline = [ 
+      "ip a",
+    ]
   }
 }
