@@ -60,7 +60,7 @@ resource "null_resource" "puppet" {
       "ssh-keygen -R ${var.puppet_git_host}",
       "echo '${var.puppet_git_host} ${var.puppet_git_fingerprint}' >> ~/.ssh/known_hosts",
       "ssh-keygen -Hf ~/.ssh/known_hosts",
-      "git clone git@${var.puppet_git_host}/${var.puppet_git_repo}?ref=${var.puppet_git_ref} .puppet",
+      "git clone git@${var.puppet_git_host}:${var.puppet_git_repo}?ref=${var.puppet_git_ref} .puppet",
       
             
       "rm -rf .puppet"
