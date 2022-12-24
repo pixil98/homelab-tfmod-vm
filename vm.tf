@@ -57,7 +57,6 @@ resource "null_resource" "puppet" {
   provisioner "remote-exec" {
     inline = [ 
       "ssh-keygen -R github.com",
-      "sudo apt-get install jq",
       "curl --silent https://api.github.com/meta | jq --raw-output '\"github.com \"+.ssh_keys[]' >> ~/.ssh/known_hosts",
       "ssh-keygen -Hf ~/.ssh/known_hosts",
       "cat ~/.ssh/known_hosts",
