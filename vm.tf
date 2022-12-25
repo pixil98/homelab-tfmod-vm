@@ -57,13 +57,7 @@ resource "null_resource" "puppet" {
 
   provisioner "remote-exec" {
     inline = [ 
-      "ssh-keygen -R ${var.puppet_git_host}",
-      "echo '${var.puppet_git_host} ${var.puppet_git_fingerprint}' >> ~/.ssh/known_hosts",
-      "ssh-keygen -Hf ~/.ssh/known_hosts",
-
-      "ssh-keygen -t ed25519 -f '~/.ssh/id_ed25519_prov' -q -P ''",
-
-      "git clone git@${var.puppet_git_host}:${var.puppet_git_repo} .puppet",
+      "git clone ${var.puppet_git_repo} .puppet",
       "git checkout --git-dir='.puppet' '${var.puppet_git_ref}'",
       
       "rm -rf .puppet"
