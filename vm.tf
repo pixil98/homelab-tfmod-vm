@@ -57,8 +57,11 @@ resource "null_resource" "puppet" {
   provisioner "remote-exec" {
     inline = [ 
       "git clone ${var.puppet_git_repo} .puppet",
-      "git -C .puppet checkout '${var.puppet_git_ref}'",
-      
+      "pushd .puppet",
+      "git checkout '${var.puppet_git_ref}'",
+      "r10k puppetfile install -v",
+      "puppet apply -e 'include role::${var.puppet_role}'",
+      "popd",
       "rm -rf .puppet"
     ]
   }
