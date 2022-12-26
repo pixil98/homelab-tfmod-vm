@@ -58,7 +58,7 @@ resource "null_resource" "puppet" {
     inline = [ 
       "git clone ${var.puppet_git_repo} .puppet",
       "git -C .puppet checkout '${var.puppet_git_ref}'",
-      "sudo /opt/puppetlabs/bin/puppet apply -e 'include role::${var.puppet_role}' ---basemodulepath='.puppet/site-modules:.puppet/modules'",
+      "sudo /opt/puppetlabs/bin/puppet apply -e 'include role::${var.puppet_role}' --basemodulepath='.puppet/site-modules:.puppet/modules'",
       "rm -rf .puppet"
     ]
   }
