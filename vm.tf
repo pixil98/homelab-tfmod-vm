@@ -29,7 +29,7 @@ resource "proxmox_vm_qemu" "vm" {
         network,
       ]
   }
-  
+   
   # Cloud Init Settings
   ipconfig0 = format("ip=%s/%d,gw=%s", var.vm_network_address, var.vm_network_prefix, var.vm_network_gateway)
   nameserver = var.vm_network_nameserver

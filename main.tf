@@ -6,4 +6,4 @@ terraform {
       configuration_aliases = [ proxmox ]
     }
   }
-}
+} 
