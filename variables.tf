@@ -1,7 +1,7 @@
 #---------------------------------------------------------------------------------------------------
 # General
 #---------------------------------------------------------------------------------------------------
- 
+
 variable "node" {
   description = "Proxmox node to host the virtual machine"
   type        = string
@@ -118,12 +118,6 @@ variable "puppet_git_ref" {
   description = "Git ref"
   type        = string
   default     = "production"
-}
-
-variable "puppet_git_fingerprint" {
-  description = "SSH fingerprint of git server"
-  type        = string
-  default     = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl"
 }
 
 variable "puppet_role" {
