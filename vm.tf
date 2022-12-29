@@ -59,7 +59,7 @@ resource "null_resource" "puppet" {
       "git clone ${var.puppet_git_repo} .puppet",
       "git -C .puppet checkout '${var.puppet_git_ref}'",
       "export FACTER_PROVISIONED_USER='${proxmox_vm_qemu.vm.ciuser}'",
-      "sudo /opt/puppetlabs/bin/puppet apply -e 'include role::${var.puppet_role}' --basemodulepath='.puppet/site-modules:.puppet/modules'",
+      "sudo -E /opt/puppetlabs/bin/puppet apply -e 'include role::${var.puppet_role}' --basemodulepath='.puppet/site-modules:.puppet/modules'",
       "rm -rf .puppet"
     ]
   }
