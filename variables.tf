@@ -91,14 +91,8 @@ variable "vm_user" {
   type        = string
 }
 
-variable "vm_user_publickey" {
-  description = "Virtual machine user public key"
-  type        = string
-  sensitive   = true
-}
-
 variable "vm_user_privatekey" {
-  description = "Virtual machine user private key, only used to deploy puppet role"
+  description = "Virtual machine user private key"
   type        = string
   sensitive   = true
   default     = null
