@@ -39,7 +39,7 @@ resource "proxmox_vm_qemu" "vm" {
   nameserver = var.vm_network_nameserver
   searchdomain = var.vm_network_searchdomain
   ciuser    = var.vm_user
-  sshkeys   = data.tls_public_key.user_publickey
+  sshkeys   = trimspace(data.tls_public_key.user_publickey.public_key_openssh)
 }
 
 # Apply Puppet role
