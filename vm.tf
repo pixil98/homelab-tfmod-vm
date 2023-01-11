@@ -1,3 +1,7 @@
+data "tls_public_key" "user_publickey" {
+  private_key_openssh = var.vm_user_privatekey
+}
+
 resource "proxmox_vm_qemu" "vm" {
   name              = format("%s.%s.lab", var.vm_name, var.namespace)
   desc              = var.vm_description
@@ -35,7 +39,7 @@ resource "proxmox_vm_qemu" "vm" {
   nameserver = var.vm_network_nameserver
   searchdomain = var.vm_network_searchdomain
   ciuser    = var.vm_user
-  sshkeys   = var.vm_user_publickey
+  sshkeys   = data.tls_public_key.user_publickey
 }
 
 # Apply Puppet role
