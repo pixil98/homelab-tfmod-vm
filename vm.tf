@@ -11,7 +11,7 @@ resource "proxmox_vm_qemu" "vm" {
   onboot            = true
   pool              = var.namespace
   agent             = 1
-  os_type           = "cloud-init"
+  os_type           = "l26"
   cores             = var.vm_cpu_cores
   sockets           = var.vm_cpu_sockets
   cpu               = "host"
