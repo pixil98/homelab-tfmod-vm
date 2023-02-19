@@ -61,6 +61,7 @@ resource "null_resource" "puppet" {
 
   provisioner "remote-exec" {
     inline = [ 
+      "sleep 90",
       "sudo apt-get -yqq -o DPkg::Lock::Timeout=-1 dist-upgrade",
       "git clone --quiet ${var.puppet_git_repo} .puppet",
       "git -C .puppet checkout '${var.puppet_git_ref}'",
