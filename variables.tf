@@ -54,7 +54,6 @@ variable "vm_disk_size" {
 variable "vm_disk_class" {
   description = "Virtual machine disk classification"
   type        = string
-  default     = "vmstorage"
 }
 
 variable "vm_network_address" {
