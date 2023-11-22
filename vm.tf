@@ -55,6 +55,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
   }
 
   initialization {
+    interface    = "ide2"
     datastore_id = var.vm_disk_class
     dns {
       domain = var.vm_network_searchdomain
