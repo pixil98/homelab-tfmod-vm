@@ -40,15 +40,15 @@ variable "vm_cpu_sockets" {
 }
 
 variable "vm_memory" {
-  description = "Virtual machine memory in Megabytes"
+  description = "Virtual machine memory in megabytes"
   type        = number
   default     = 512
 }
 
 variable "vm_disk_size" {
-  description = "Virtual machine disk size"
-  type        = string
-  default     = "1G"
+  description = "Virtual machine disk size in gigabytes"
+  type        = number
+  default     = "1"
 }
 
 variable "vm_disk_class" {
