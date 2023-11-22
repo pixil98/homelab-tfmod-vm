@@ -58,10 +58,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
   initialization {
     interface    = "ide2"
     datastore_id = var.vm_disk_class
-    dns {
-      domain = var.vm_network_searchdomain
-      server = var.vm_network_nameserver
-    }
+
     ip_config {
       ipv4 {
         address = format("ip=%s/%d", var.vm_network_address, var.vm_network_prefix)
