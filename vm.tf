@@ -2,45 +2,74 @@ data "tls_public_key" "user_publickey" {
   private_key_openssh = var.vm_user_privatekey
 }
 
-resource "proxmox_vm_qemu" "vm" {
+resource "proxmox_virtual_environment_vm" "vm" {
   name              = format("%s.%s.lab", var.vm_name, var.namespace)
-  desc              = var.vm_description
-  target_node       = var.node
-  clone             = "debian-11-cloudinit"
-  oncreate          = true
-  onboot            = true
-  pool              = var.namespace
-  agent             = 1
-  os_type           = "cloud-init"
-  qemu_os           = "l26"
-  cores             = var.vm_cpu_cores
-  sockets           = var.vm_cpu_sockets
-  cpu               = "host"
-  memory            = var.vm_memory
-  scsihw            = "virtio-scsi-pci"
-  bootdisk          = "scsi0"
-  disk {
-      size            = var.vm_disk_size
-      type            = "scsi"
-      storage         = var.vm_disk_class
-      iothread        = 0
+  description       = var.vm_description
+  tags              = []
+  node_name         = var.node
+
+  agent {
+    enabled = true
   }
-  network {
+
+  disk {
+    datastore_id = var.vm_disk_class
+    interface    = "scsi0"
+    iothread     = true
+    size         = var.vm_disk_size
+  }
+
+  clone {
+    node_name = "hobbes"
+    vm_id     = 9000
+  }
+
+  cpu {
+    architecture = "x86_64"
+    cores        = var.vm_cpu_cores
+    sockets      = var.vm_cpu_sockets
+  }
+
+  memory {
+    dedicated = var.vm_memory
+  }
+
+  operating_system {
+    type = "l26"
+  }
+
+  on_boot       = true
+  pool_id       = var.namespace
+  scsi_hardware = "virtio-scsi-pci"
+
+  network_device {
       model           = "virtio"
       bridge          = "vmbr0"
   }
+
   lifecycle {
-      ignore_changes  = [
-        network,
+      ignore_changes = [
+        network_device,
       ]
   }
-  
-  # Cloud Init Settings
-  ipconfig0 = format("ip=%s/%d,gw=%s", var.vm_network_address, var.vm_network_prefix, var.vm_network_gateway)
-  nameserver = var.vm_network_nameserver
-  searchdomain = var.vm_network_searchdomain
-  ciuser    = var.vm_user
-  sshkeys   = trimspace(data.tls_public_key.user_publickey.public_key_openssh)
+
+  initialization {
+    datastore_id = var.vm_disk_class
+    dns {
+      domain = var.vm_network_searchdomain
+      server = var.vm_network_nameserver
+    }
+    ip_config {
+      ipv4 {
+        address = format("ip=%s/%d", var.vm_network_address, var.vm_network_prefix)
+        gateway = var.vm_network_gateway
+      }
+    }
+    user_account {
+      username = var.vm_user
+      keys     = [ trimspace(data.tls_public_key.user_publickey.public_key_openssh) ]
+    }
+  }
 }
 
 # Apply Puppet role
@@ -53,10 +82,10 @@ resource "null_resource" "puppet" {
 
   connection {
     type        = "ssh"
-    user        = proxmox_vm_qemu.vm.ciuser
+    user        = var.vm_user
     private_key = var.vm_user_privatekey
-    host        = proxmox_vm_qemu.vm.ssh_host
-    port        = proxmox_vm_qemu.vm.ssh_port
+    host        = var.vm_network_address
+    port        = 22
   }
 
   provisioner "remote-exec" {
