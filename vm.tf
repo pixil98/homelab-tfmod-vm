@@ -24,12 +24,6 @@ resource "proxmox_virtual_environment_vm" "vm" {
     numa         = true
   }
 
-  disk {
-    datastore_id = var.vm_disk_class
-    interface    = "scsi0"
-    iothread     = true
-    size         = var.vm_disk_size
-  }
 
   memory {
     dedicated = var.vm_memory
@@ -55,6 +49,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
   }
 
   initialization {
+    interface    = "ide2"
     datastore_id = var.vm_disk_class
     dns {
       domain = var.vm_network_searchdomain
