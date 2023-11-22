@@ -84,7 +84,7 @@ resource "null_resource" "puppet" {
     type        = "ssh"
     user        = var.vm_user
     private_key = var.vm_user_privatekey
-    host        = proxmox_virtual_environment_vm.vm.ipv4_addresses[0]
+    host        = proxmox_virtual_environment_vm.vm.ipv4_addresses[0][0]
     port        = 22
   }
 
