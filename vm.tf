@@ -5,18 +5,11 @@ data "tls_public_key" "user_publickey" {
 resource "proxmox_virtual_environment_vm" "vm" {
   name              = format("%s.%s.lab", var.vm_name, var.namespace)
   description       = var.vm_description
-  tags              = []
+  tags              = [ var.namespace ]
   node_name         = var.node
 
   agent {
     enabled = true
-  }
-
-  disk {
-    datastore_id = var.vm_disk_class
-    interface    = "scsi0"
-    iothread     = true
-    size         = var.vm_disk_size
   }
 
   clone {
@@ -28,6 +21,14 @@ resource "proxmox_virtual_environment_vm" "vm" {
     architecture = "x86_64"
     cores        = var.vm_cpu_cores
     sockets      = var.vm_cpu_sockets
+    numa         = true
+  }
+
+  disk {
+    datastore_id = var.vm_disk_class
+    interface    = "scsi0"
+    iothread     = true
+    size         = var.vm_disk_size
   }
 
   memory {
