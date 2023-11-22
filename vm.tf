@@ -6,6 +6,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
   name              = format("%s.%s.lab", var.vm_name, var.namespace)
   description       = var.vm_description
   tags              = [ var.namespace ]
+  migrate           = true
   node_name         = var.node
 
   agent {
@@ -24,6 +25,12 @@ resource "proxmox_virtual_environment_vm" "vm" {
     numa         = true
   }
 
+  disk {
+    datastore_id = var.vm_disk_class
+    interface    = "scsi0"
+    iothread     = true
+    size         = var.vm_disk_size
+  }
 
   memory {
     dedicated = var.vm_memory
