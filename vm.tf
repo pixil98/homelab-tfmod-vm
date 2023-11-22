@@ -61,7 +61,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
 
     ip_config {
       ipv4 {
-        address = format("ip=%s/%d", var.vm_network_address, var.vm_network_prefix)
+        address = format("%s/%d", var.vm_network_address, var.vm_network_prefix)
         gateway = var.vm_network_gateway
       }
     }
