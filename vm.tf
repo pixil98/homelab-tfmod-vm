@@ -28,7 +28,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
   disk {
     datastore_id = var.vm_disk_class
     interface    = "scsi0"
-    iothread     = true
+    #iothread     = true
     size         = var.vm_disk_size
   }
 
@@ -52,6 +52,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
   lifecycle {
       ignore_changes = [
         network_device,
+        ipv4_addresses,
       ]
   }
 
