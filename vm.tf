@@ -52,7 +52,6 @@ resource "proxmox_virtual_environment_vm" "vm" {
   lifecycle {
       ignore_changes = [
         network_device,
-        ipv4_addresses,
       ]
   }
 
