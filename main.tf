@@ -7,11 +7,11 @@ terraform {
     }
     proxmox = {
       source = "bpg/proxmox"
-      version = "0.58.1"
+      version = "0.65.0"
     }
     tls = {
       source = "hashicorp/tls"
-      version = "4.0.5"
+      version = "4.0.6"
     }
   }
 }
