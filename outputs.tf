@@ -1,4 +1,4 @@
 output "ip_address" {
   description = "Virtual machine IP address"
-  value       = proxmox_virtual_environment_vm.vm.ipv4_addresses[1][0]
+  value       = var.vm_network_address
 }
