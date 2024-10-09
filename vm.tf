@@ -74,6 +74,8 @@ resource "proxmox_virtual_environment_vm" "vm" {
 
 # Apply Puppet role
 resource "null_resource" "puppet" {
+  depends_on = [ proxmox_virtual_environment_vm.vm ]
+
   triggers = {
     role = var.puppet_role
     repo = var.puppet_git_repo
@@ -84,7 +86,7 @@ resource "null_resource" "puppet" {
     type        = "ssh"
     user        = var.vm_user
     private_key = var.vm_user_privatekey
-    host        = proxmox_virtual_environment_vm.vm.ipv4_addresses[1][0]
+    host        = var.vm_network_address
     port        = 22
   }
 
