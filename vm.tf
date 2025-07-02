@@ -19,7 +19,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
   }
 
   cpu {
-    #type         = "x86-64-v2-AES"
+    type         = "host"
     cores        = var.vm_cpu_cores
     sockets      = var.vm_cpu_sockets
     numa         = true
